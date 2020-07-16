@@ -12,7 +12,11 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- Step 3: Add support for component scanning -->
-	<context:component-scan base-package="com.luv2code.springdemo.mvc" />
+	<context:component-scan base-package="com.luv2code.springdemo.mvc">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.apache.ibatis.annotations.Mapper" />
+	</context:component-scan>
 
 	<!-- Step 4: Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven/>
@@ -23,6 +27,25 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	<!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	 	destroy-method="close">
+	 	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+	 	<property name="url" value="jdbc:mysql://34.84.140.112:3306/mysql?serverTimezone=UTC" />
+	 	<property name="username" value="yang" />
+	 	<property name="password" value="1235" />
+	 </bean>
+	  -->
+	  <!-- 
+	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	 	<property name="dataSource" ref="dataSource" /> 
+	 </bean>
+	 
+	  -->
+	 
+	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	 	<property name="basePackage" value="com.luv2code.springdemo.mvc.mapper"></property>
+	 </bean>
 
 </beans>
 
